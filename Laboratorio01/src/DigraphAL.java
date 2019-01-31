@@ -32,6 +32,12 @@ public class DigraphAL extends Digraph {
     LinkedList<Pareja<Integer,Integer>> listaSource = lista.get(source);
 		listaSource.add(new Pareja<>(destination, weight));
 	}
+	
+	/**
+	 * Metodos para agregar nuevos vertices
+	 * @param vertex ID del vertice que se va a añadir
+	 */
+	public abstract void addVertex(int vertex);
 
 	/**
 	* Metodo para obtener una lista de hijos desde un nodo, es decir todos los nodos

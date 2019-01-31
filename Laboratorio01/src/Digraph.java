@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Clase abstracta para la implementacion de grafos dirigidos
@@ -9,6 +10,7 @@ import java.util.ArrayList;
  */
 public abstract class Digraph {
 	protected int size;
+	private HashSet<Vertex> vertexes = new HashSet<Vertex>();
 
 	/**
 	* Constructor para el grafo dirigido
@@ -27,6 +29,12 @@ public abstract class Digraph {
 	* @param weight el peso de la longitud entre source y destination
 	*/
 	public abstract void addArc(int source, int destination, int weight);
+	
+	/**
+	 * Metodos para agregar nuevos vertices
+	 * @param vertex ID del vertice que se va a añadir
+	 */
+	public abstract void addVertex(int vertex);
 
 	/**
 	* Metodo para obtener una lista de hijos desde un nodo, es decir todos los nodos
