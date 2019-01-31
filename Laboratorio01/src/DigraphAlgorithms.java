@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 /**
@@ -16,6 +18,13 @@ public class DigraphAlgorithms
         }
         return y;
      }
+
+    final String fileName = "ConjuntoDeDatosCon" + getColonySize() + "abejas.txt";
+    double totalLongitudinalDistance = 0;
+    BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
+    String line = bufferedReader.readLine();
+    line = bufferedReader.readLine();
+    String [] lineSplit = line.split(" ", 3);
   
     
   static int [] dijsktra(Digraph dg, int source)
