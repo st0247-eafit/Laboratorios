@@ -1,7 +1,10 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
+
 /**
  * This class contains algorithms for digraphs
  * Adapted from: http://cs.fit.edu/~ryan/java/programs/graph/Dijkstra-java.html
@@ -10,22 +13,33 @@ import java.util.Arrays;
  */
 public class DigraphAlgorithms
 {
-        private static int minVertex (int [] dist, boolean [] v) {
-        int x = Integer.MAX_VALUE;
-        int y = -1;   // graph not connected, or no unvisited vertices
-        for (int i=0; i<dist.length; i++) {
-           if (!v[i] && dist[i]<x) {y=i; x=dist[i];}
-        }
-        return y;
-     }
-
-    final String fileName = "ConjuntoDeDatosCon" + getColonySize() + "abejas.txt";
-    double totalLongitudinalDistance = 0;
-    BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
-    String line = bufferedReader.readLine();
-    line = bufferedReader.readLine();
-    String [] lineSplit = line.split(" ", 3);
+  private static int minVertex (int [] dist, boolean [] v) {
+    int x = Integer.MAX_VALUE;
+    int y = -1;   // graph not connected, or no unvisited vertices
+    for (int i=0; i<dist.length; i++) {
+       if (!v[i] && dist[i]<x) {y=i; x=dist[i];}
+    }
+    return y;
+  }
   
+  public static void readCoordinates() {
+    final String fileName = "medellin_colombia-grande.txt";
+    double totalLongitudinalDistance = 0;
+    BufferedReader bufferedReader = null;
+    Scanner sc = null;
+    try {
+      bufferedReader = new BufferedReader(new FileReader(fileName));
+      sc = new Scanner(bufferedReader);
+    } catch ( FileNotFoundException e ) {
+      System.out.println("El archivo no fue encontrado");
+    }
+    sc.nextLine();
+    String line;
+    while ( sc.hasNextLine() ) {
+      line = sc.nextLine();
+      String[] lineSplit = line.split(" ", 3);
+    }
+  }
     
   static int [] dijsktra(Digraph dg, int source)
   {
