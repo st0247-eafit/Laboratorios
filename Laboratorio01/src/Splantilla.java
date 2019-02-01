@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader; //por teclado
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Scanner;
+
 public class Splantilla
 {
   /**
@@ -17,9 +19,35 @@ public class Splantilla
   */
   public static void makeMap()
   {
-
   }
-
+    public void readCoordinates() {
+        final String fileName = "medellin_colombia-grande.txt";
+        String findLocation = "Arcos.";
+        BufferedReader bufferedReader;
+        Scanner sc = new Scanner(System.in);
+        long id1;
+        long id2;
+        double distance;
+        try {
+            bufferedReader = new BufferedReader(new FileReader(fileName));
+            sc = new Scanner(bufferedReader);
+        } catch ( FileNotFoundException e ) {
+            System.out.println("Error reading file.");
+        }
+        sc.nextLine();
+        while (sc.hasNextLine()){
+            String line = sc.nextLine().toString();
+            if(line.contains(findLocation)){
+                System.out.println(line);
+                while(sc.hasNextLine()) {
+                    String [] lineSplit = line.split(" ", 3);
+                    id1 = Long.parseLong(lineSplit[0]);
+                    id2 = Long.parseLong(lineSplit[1]);
+                    distance = Double.parseDouble(lineSplit[2]);
+                }
+            }
+            }
+        }
   /**
   * Metodo principal del programa
   * @param args un array de argumentos
