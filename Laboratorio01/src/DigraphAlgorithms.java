@@ -22,24 +22,7 @@ public class DigraphAlgorithms
     return y;
   }
   
-  public static void readCoordinates() {
-    final String fileName = "medellin_colombia-grande.txt";
-    double totalLongitudinalDistance = 0;
-    BufferedReader bufferedReader = null;
-    Scanner sc = null;
-    try {
-      bufferedReader = new BufferedReader(new FileReader(fileName));
-      sc = new Scanner(bufferedReader);
-    } catch ( FileNotFoundException e ) {
-      System.out.println("El archivo no fue encontrado");
-    }
-    sc.nextLine();
-    String line;
-    while ( sc.hasNextLine() ) {
-      line = sc.nextLine();
-      String[] lineSplit = line.split(" ", 3);
-    }
-  }
+
     
   static int [] dijsktra(Digraph dg, int source)
   {
@@ -114,19 +97,7 @@ public class DigraphAlgorithms
      dgal.addArc(4,3,9);
      
      System.out.println(getPath(dijsktra(dgal,0),0,3));
-     
-     DigraphAM dgam = new DigraphAM(5);
-     dgam.addArc(0,1,10);
-     dgam.addArc(0,2,3);
-     dgam.addArc(1,2,1);
-     dgam.addArc(1,3,2);
-     dgam.addArc(2,1,4);
-     dgam.addArc(2,3,8);
-     dgam.addArc(2,4,2);
-     dgam.addArc(3,4,7);
-     dgam.addArc(4,3,9);
-     
-     System.out.println(getPath(dijsktra(dgam,0),0,3)); 
+
 
      DigraphAlgorithms.dibujarGrafo(dgal);
      
