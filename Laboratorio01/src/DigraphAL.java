@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
@@ -6,19 +7,17 @@ import java.util.LinkedList;
  *
  * @author Mauricio Toro, Mateo Agudelo, <su nombre>
  */
-public class DigraphAL extends Digraph {
-  LinkedList<LinkedList<Pareja<Integer,Integer>>> lista;
-
+public class DigraphAL<V, C>{
+	
+	HashMap<V, LinkedList<Pair<V, C>>> arcs;
+	HashMap<V, Vertex> verexes;
+	
 	/**
 	* Constructor para el grafo
-	* @param size numero de vetices del grafo
-	*
 	*/
-	public DigraphAL(int size) {
-    super(size);
-		lista = new LinkedList();
-    for (int i = 1; i <= size; i++)
-       lista.add(new LinkedList<Pareja<Integer,Integer>>());
+	public DigraphAL() {
+    super();
+    arcs = new HashMap<>();
 	}
 
 	/**
@@ -26,19 +25,24 @@ public class DigraphAL extends Digraph {
 	* y se le asigna un peso a la longitud entre un nodo fuente y uno destino	
 	* @param source desde donde se hara el arco
 	* @param destination hacia donde va el arco
-	* @param weight el peso de la longitud entre source y destination
+	* @param distance  el peso de la longitud entre source y destination
 	*/
-	public void addArc(int source, int destination, int weight){
-    LinkedList<Pareja<Integer,Integer>> listaSource = lista.get(source);
-		listaSource.add(new Pareja<>(destination, weight));
+	public void addArc(V source, V destination, C distance){
+		(arcs.get(source)).add(new Pair<>(destination, distance));
 	}
 	
 	/**
 	 * Metodos para agregar nuevos vertices
-	 * @param vertex ID del vertice que se va a añadir
+	 *
+	 * @param id es el ID de el vertice
+	 * @param coordinateX es la primera coordenada del vertice
+	 * @param coordinateY es la segunda coordenada del vertice
 	 */
-	public abstract void addVertex(int vertex);
-
+	public void addVertex (V id, double coordinateX, double coordinateY) {
+		verexes.put(id, (new Vertex((Long ) id, coordinateX, coordinateY)));
+		arcs.put(id, new LinkedList<>());
+	}
+	
 	/**
 	* Metodo para obtener una lista de hijos desde un nodo, es decir todos los nodos
 	* asociados al nodo pasado como argumento
@@ -47,17 +51,16 @@ public class DigraphAL extends Digraph {
 	* Para más información de las clases:
  	* @see <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html"> Ver documentacion ArrayList </a>
 	*/
-	public ArrayList<Integer> getSuccessors(int vertex) {
+	public ArrayList<V> getSuccessors(long vertex) {
 		// Una nueva lista que saque los sucesores
-     ArrayList<Integer> successors = new ArrayList();
-     LinkedList<Pareja<Integer,Integer>> listaDeParejas = lista.get(vertex);
-     for (Pareja<Integer,Integer> pareja: listaDeParejas) {
-		 successors.add(pareja.getVertice()); //segunda parte de la pareja
+     ArrayList<V> successors = new ArrayList<>();
+     LinkedList<Pair<V, C>> listPairs = arcs.get(vertex);
+     for (Pair<V, C> pair: listPairs) {
+		 successors.add(pair.getVertex()); //segunda parte de la pareja
 	 }
 		if (successors.size() == 0) {
 			return null;
 		}
-		successors.sort(Integer::compareTo);
 		return successors;
 	}
 
@@ -68,17 +71,18 @@ public class DigraphAL extends Digraph {
 	* @param destination  donde termina el arco
 	* @return un entero con dicho peso
 	*/	
-	public int getWeight(int source, int destination) {
-		LinkedList<Pareja<Integer,Integer>> LSource = lista.get(source);
-    int i= 0;
-    int weight = 0;
-	  while((weight != destination)&&(i < LSource.size())){
-      if(LSource.get(i).getVertice() == destination) {
-		  weight = LSource.get(i).getPeso();
-	  }
+	public C getWeight(V source, V destination) {
+		LinkedList<Pair<V,C>> LSource = arcs.get(source);
+    int i = 0;
+    V n = LSource.get(0).getVertex();
+    C cost = LSource.get(0).getCost();
+	  while(( n != destination)&&(i < LSource.size())){
+      if(LSource.get(i).getVertex() == destination) {
+      	n = LSource.get(i).getVertex();
+      	cost = LSource.get(i).getCost();
+	  	}
       i++;
     }
-    return weight;
+    return cost;
 	}
-
 }
