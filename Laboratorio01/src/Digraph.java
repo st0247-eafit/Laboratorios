@@ -7,7 +7,7 @@ import java.util.LinkedList;
  *
  * @author Mauricio Toro, Mateo Agudelo, <su nombre>
  */
-public class DigraphAL<V, C>{
+public class Digraph<V, C>{
 	
 	HashMap<V, LinkedList<Pair<V, C>>> arcs;
 	HashMap<V, Vertex> verexes;
@@ -15,7 +15,7 @@ public class DigraphAL<V, C>{
 	/**
 	* Constructor para el grafo
 	*/
-	public DigraphAL() {
+	public Digraph() {
     super();
     arcs = new HashMap<>();
 	}
@@ -84,5 +84,9 @@ public class DigraphAL<V, C>{
       i++;
     }
     return cost;
+	}
+	
+	public int size(){
+		return verexes.size();
 	}
 }
