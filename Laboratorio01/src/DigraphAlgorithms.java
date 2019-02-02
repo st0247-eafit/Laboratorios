@@ -1,9 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
 /**
  * This class contains algorithms for digraphs
@@ -73,12 +68,15 @@ public class DigraphAlgorithms
     System.out.println("digraph Grafo {");
     System.out.println("node [color=cyan, style=filled];");
     int nv = g.size();
-    for (int i = 0; i < nv; i++)
+    int i = 0;
+    for ( Object vertex: g.vertexes.keySet() )
     {
       ArrayList<Long> lista = g.getSuccessors(i);
+      System.out.println(lista.toString());
       for ( int j = 0; j < lista.size(); j++ ){
-        System.out.println("\"" + i + "\" -> \"" + lista.get(i) + "\" [ label=\"" + g.getWeight() + "" + lista.get(j)) + "\"]");
+        System.out.println("\"" + ( Float ) vertex + "\" -> \"" + lista.get(i) + "\" [ label=\"" + g.getWeight((( Float ) vertex), lista.get(i)) + "" + lista.get(j) + "\"]");
       }
+      i++;
     }
     
   }

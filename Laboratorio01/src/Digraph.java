@@ -28,8 +28,8 @@ public class Digraph<V, C>{
 	 * @param destination hacia donde va el arco
 	 * @param distance  el peso de la longitud entre source y destination
 	 */
-	public void addArc(V source, V destination, C distance){
-		(arcs.get(source)).add(new Pair<>(destination, distance));
+	public boolean addArc(V source, V destination, C distance){
+		return (arcs.get(source)).add(new Pair<>(destination, distance));
 	}
 	
 	/**
@@ -56,15 +56,13 @@ public class Digraph<V, C>{
 		// Una nueva lista que saque los sucesores
 		ArrayList<V> successors = new ArrayList<>();
 		LinkedList<Pair<V, C>> listPairs = arcs.get(vertex);
+    //System.out.println("listPairs.size() = " + listPairs.size());
 		if ( listPairs != null && listPairs.size() != 0 ) {
 			for ( Pair<V, C> pair : listPairs ) {
 				successors.add(pair.getVertex()); //segunda parte de la pareja
 			}
-			if ( successors.size() != 0 ) {
-				return successors;
-			}
 		}
-		return null;
+    return successors;
 	}
 	
 	/**
