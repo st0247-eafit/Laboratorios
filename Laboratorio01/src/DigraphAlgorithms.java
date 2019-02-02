@@ -63,20 +63,17 @@ public class DigraphAlgorithms
   
   // Código para dibujar el grafo en GraphViz
   // Recomiendo www.webgraphviz.com/
-  public static void dibujarGrafo(Digraph g)
+  public static <V, C> void dibujarGrafo(Digraph<V, C> g)
   {
     System.out.println("digraph Grafo {");
     System.out.println("node [color=cyan, style=filled];");
     int nv = g.size();
-    int i = 0;
-    for ( Object vertex: g.vertexes.keySet() )
+    for ( V vertex: g.vertexes.keySet() )
     {
-      ArrayList lista = g.getSuccessors(i);
+      ArrayList<V> lista = g.getSuccessors(vertex);
       for ( int j = 0; j < lista.size(); j++ ){
-        System.out.println("\"" + ( Float ) vertex + "\" -> \"" + lista.get(i) + "\" [ label=\"" + g.getWeight((( Float ) vertex), lista.get(i)) + "" + lista.get(j) + "\"]");
+        System.out.println("\"" +  vertex + "\" -> \"" + "[ label=\"" + lista.get(j) + ", " + g.getWeight(( vertex), lista.get(j)) + "\"]");
       }
-      i++;
     }
-    
   }
 }

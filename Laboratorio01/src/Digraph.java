@@ -52,13 +52,13 @@ public class Digraph<V, C>{
 	 * Para más información de las clases:
 	 * @see <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html"> Ver documentacion ArrayList </a>
 	 */
-	public ArrayList<V> getSuccessors(long vertex) {
+	public ArrayList<V> getSuccessors(V vertex) {
 		// Una nueva lista que saque los sucesores
 		ArrayList<V> successors = new ArrayList<>();
-		HashMap pairs = arcs.get(vertex);
+		HashMap<V, C> pairs = arcs.get(vertex);
 		if ( pairs != null && pairs.size() != 0 ) {
-			for ( Object successor : pairs.keySet() ) {
-				successors.add((V) successor); //segunda parte de la pareja
+			for ( V successor : pairs.keySet() ) {
+				successors.add(successor); //segunda parte de la pareja
 			}
 		}
     return successors;
