@@ -36,7 +36,7 @@ public class DigraphAlgorithms
       
       // The shortest path to next is dist[next] and via pred[next].
       
-      final ArrayList<Integer> n = dg.getSuccessors (next);
+      final ArrayList<Integer> n = dg.getSuccessors(next);
       for (int j=0; j<n.size(); j++) {
         final int v = n.get(j);
         final double d = dist[next] + (double) dg.getWeight(next,v);
@@ -71,8 +71,7 @@ public class DigraphAlgorithms
     int i = 0;
     for ( Object vertex: g.vertexes.keySet() )
     {
-      ArrayList<Long> lista = g.getSuccessors(i);
-      System.out.println(lista.toString());
+      ArrayList lista = g.getSuccessors(i);
       for ( int j = 0; j < lista.size(); j++ ){
         System.out.println("\"" + ( Float ) vertex + "\" -> \"" + lista.get(i) + "\" [ label=\"" + g.getWeight((( Float ) vertex), lista.get(i)) + "" + lista.get(j) + "\"]");
       }

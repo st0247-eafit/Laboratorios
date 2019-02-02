@@ -42,7 +42,7 @@ public class Splantilla
                     id2 = Long.parseLong(lineSplit[1]);
           distance = Double.parseDouble(lineSplit[2]);
           graph.addVertex(id1, 0,0);
-          System.out.println(graph.addArc(id1, id2, distance));
+          graph.addArc(id1, id2, distance);
         }
       }
     }

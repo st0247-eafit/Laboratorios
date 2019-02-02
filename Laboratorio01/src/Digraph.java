@@ -9,7 +9,7 @@ import java.util.LinkedList;
  */
 public class Digraph<V, C>{
 	
-	HashMap<V, LinkedList<Pair<V, C>>> arcs;
+	HashMap<V, HashMap<V, C>> arcs;
 	HashMap<V, Vertex> vertexes;
 	
 	/**
@@ -28,8 +28,8 @@ public class Digraph<V, C>{
 	 * @param destination hacia donde va el arco
 	 * @param distance  el peso de la longitud entre source y destination
 	 */
-	public boolean addArc(V source, V destination, C distance){
-		return (arcs.get(source)).add(new Pair<>(destination, distance));
+	public void addArc(V source, V destination, C distance){
+		(arcs.get(source)).put(destination, distance);
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class Digraph<V, C>{
 	 */
 	public void addVertex (V id, double coordinateX, double coordinateY) {
 		vertexes.put(id, (new Vertex((Long ) id, coordinateX, coordinateY)));
-		arcs.put(id, new LinkedList<>());
+		arcs.put(id, new HashMap<>());
 	}
 	
 	/**
@@ -55,11 +55,10 @@ public class Digraph<V, C>{
 	public ArrayList<V> getSuccessors(long vertex) {
 		// Una nueva lista que saque los sucesores
 		ArrayList<V> successors = new ArrayList<>();
-		LinkedList<Pair<V, C>> listPairs = arcs.get(vertex);
-    //System.out.println("listPairs.size() = " + listPairs.size());
-		if ( listPairs != null && listPairs.size() != 0 ) {
-			for ( Pair<V, C> pair : listPairs ) {
-				successors.add(pair.getVertex()); //segunda parte de la pareja
+		HashMap pairs = arcs.get(vertex);
+		if ( pairs != null && pairs.size() != 0 ) {
+			for ( Object successor : pairs.keySet() ) {
+				successors.add((V) successor); //segunda parte de la pareja
 			}
 		}
     return successors;
@@ -73,18 +72,11 @@ public class Digraph<V, C>{
 	 * @return un entero con dicho peso
 	 */
 	public C getWeight(V source, V destination) {
-		LinkedList<Pair<V,C>> LSource = arcs.get(source);
-		int i = 0;
-		V n = LSource.get(0).getVertex();
-		C cost = LSource.get(0).getCost();
-		while(( n != destination)&&(i < LSource.size())){
-			if(LSource.get(i).getVertex() == destination) {
-				n = LSource.get(i).getVertex();
-				cost = LSource.get(i).getCost();
-			}
-			i++;
+		HashMap<V, C> pairs = arcs.get(source);
+		for ( V cDestination: pairs.keySet() ) {
+			if ( cDestination == destination ) return (pairs.get(cDestination));
 		}
-		return cost;
+		return null;
 	}
 	
 	public int size(){
