@@ -78,7 +78,6 @@ public class Splantilla
     Splantilla sp = new Splantilla();
     Digraph<Long, Double> gragh = new Digraph<>();
     sp.readFile(gragh);
-    System.out.println("draw");
     DigraphAlgorithms.dibujarGrafo(gragh);
   }
 }
