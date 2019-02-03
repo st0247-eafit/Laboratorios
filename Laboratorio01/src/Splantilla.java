@@ -29,30 +29,44 @@ public class Splantilla
       System.exit(-1);
     }
     sc.nextLine();
+    String line;
     while (sc.hasNextLine()){
-      String line = sc.nextLine();
+      line =  sc.nextLine();
       if(line.contains(findLocation)){
-        readArcs(graph, line);
-        
+        while ( sc.hasNextLong() ) {
+          line = sc.nextLine();
+          readArcs(graph, line);
+        }
+        continue;
       }
       readCoordinates(graph, line);
     }
   }
   
   private void readCoordinates(Digraph graph, String line){
-  
+    if ( line.length() > 0 ) {
+      long id;
+      double coordinateX;
+      double coordinateY;
+      String[] str = line.split(" ");
+      id = Long.parseLong(str[0]);
+      coordinateX = Double.parseDouble(str[1]);
+      coordinateY = Double.parseDouble(str[2]);
+      graph.addVertex(id, coordinateX, coordinateY);
+    }
   }
   
   private void readArcs(Digraph graph, String line){
-    long id1;
-    long id2;
-    double distance;
-    String [] lineSplit = line.split(" ", 4);
-    id1 = Long.parseLong(lineSplit[0]);
-    id2 = Long.parseLong(lineSplit[1]);
-    distance = Double.parseDouble(lineSplit[2]);
-    graph.addVertex(id1, 0,0);
-    graph.addArc(id1, id2, distance);
+    if ( line.length() > 0 ) {
+      long id1;
+      long id2;
+      double distance;
+      String[] str = line.split(" ");
+      id1 = Long.parseLong(str[0]);
+      id2 = Long.parseLong(str[1]);
+      distance = Double.parseDouble(str[2]);
+      graph.addArc(id1, id2, distance);
+    }
   }
   /**
    * Metodo principal del programa
@@ -64,6 +78,7 @@ public class Splantilla
     Splantilla sp = new Splantilla();
     Digraph<Long, Double> gragh = new Digraph<>();
     sp.readFile(gragh);
+    System.out.println("draw");
     DigraphAlgorithms.dibujarGrafo(gragh);
   }
 }

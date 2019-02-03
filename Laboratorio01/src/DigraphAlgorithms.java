@@ -68,12 +68,14 @@ public class DigraphAlgorithms
     System.out.println("digraph Grafo {");
     System.out.println("node [color=cyan, style=filled];");
     int nv = g.size();
-    for ( V vertex: g.vertexes.keySet() )
+    for ( V source: g.vertexes.keySet() )
     {
-      ArrayList<V> lista = g.getSuccessors(vertex);
-      for ( int j = 0; j < lista.size(); j++ ){
-        System.out.println("\"" +  vertex + "\" -> \"" + "[ label=\"" + lista.get(j) + ", " + g.getWeight(( vertex), lista.get(j)) + "\"]");
+      ArrayList<V> lista = g.getSuccessors(source);
+      System.out.print("\"" + source + "\" -> \"" + "[ ");
+      for ( V destination : lista ) {
+        System.out.print("( Destination=\"" + destination + ", Distance=" + g.getWeight((source), destination) + "\" )");
       }
+      System.out.println("]");
     }
   }
 }
